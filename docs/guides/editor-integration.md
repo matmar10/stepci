@@ -67,6 +67,7 @@ StepCI provides separate schema files for workflows, tests, and steps in the `/s
 Configure schema mappings based on your file organization:
 
 **Using file patterns:**
+<<<<<<< HEAD
 
 ```json
 {
@@ -74,6 +75,14 @@ Configure schema mappings based on your file organization:
     "https://raw.githubusercontent.com/stepci/stepci/refs/heads/main/schemas/suite.schema.json": ["*.stepci.yml"],
     "https://raw.githubusercontent.com/stepci/stepci/refs/heads/main/schemas/test.schema.json": ["**/*.stepci-test.yml"],
     "https://raw.githubusercontent.com/stepci/stepci/refs/heads/main/schemas/step.schema.json": ["**/*.stepci-step.yml"]
+=======
+```json
+{
+  "yaml.schemas": {
+    "./schemas/suite.schema.json": ["*.stepci.yml"],
+    "./schemas/test.schema.json": ["**/*.stepci-test.yml"],
+    "./schemas/step.schema.json": ["**/*.stepci-step.yml"]
+>>>>>>> 5c0c457 (Add docs to explain architecture for large projects using separate files)
   }
 }
 ```
