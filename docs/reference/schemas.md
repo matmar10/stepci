@@ -7,7 +7,7 @@ StepCI provides JSON Schema definitions for workflows, tests, and steps. These s
 The schemas mirror StepCI's three-level hierarchy:
 
 ```
-suite.schema.json (Workflow/Suite)
+workflow.schema.json (Workflow/Suite)
     ↓ references
 test.schema.json (Test)
     ↓ references
@@ -18,11 +18,11 @@ Each schema can be used independently to validate its corresponding file type, o
 
 ## Available Schemas
 
-### suite.schema.json - Workflow Schema
+### workflow.schema.json - Workflow Schema
 
 **Purpose**: Defines the top-level workflow (suite) structure
 
-**Location**: [`/schemas/suite.schema.json`](../../schemas/suite.schema.json)
+**Location**: [`/schemas/workflow.schema.json`](../../schemas/workflow.schema.json)
 
 **Validates**:
 - Workflow files (`.yml`, `.yaml`, `.json`)
@@ -37,7 +37,7 @@ Each schema can be used independently to validate its corresponding file type, o
 
 **Example usage**:
 ```yaml
-# yaml-language-server: $schema=../../schemas/suite.schema.json
+# yaml-language-server: $schema=../../schemas/workflow.schema.json
 version: "1.1"
 name: "API Test Suite"
 tests:
@@ -154,7 +154,7 @@ Or configure in VSCode settings:
 ```json
 {
   "yaml.schemas": {
-    "./schemas/suite.schema.json": ["*workflow.yml", "workflow.yml"],
+    "./schemas/workflow.schema.json": ["*workflow.yml", "workflow.yml"],
     "./schemas/test.schema.json": ["**/*.test.yml", "**/tests/*.yml"],
     "./schemas/step.schema.json": ["**/*.step.yml", "**/steps/*.yml"]
   }
@@ -179,7 +179,7 @@ Validate workflow files as part of your CI/CD pipeline to catch errors before ex
 npm install -g ajv-cli
 
 # Validate a workflow file
-ajv validate -s schemas/suite.schema.json -d workflow.yml
+ajv validate -s schemas/workflow.schema.json -d workflow.yml
 
 # Validate multiple files
 ajv validate -s schemas/test.schema.json -d "tests/*.yml"
@@ -192,7 +192,7 @@ ajv validate -s schemas/test.schema.json -d "tests/*.yml"
 pip install check-jsonschema
 
 # Validate workflow
-check-jsonschema --schemafile schemas/suite.schema.json workflow.yml
+check-jsonschema --schemafile schemas/workflow.schema.json workflow.yml
 ```
 
 **GitHub Actions Example**:
@@ -208,7 +208,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
       - run: npm install -g ajv-cli
-      - run: ajv validate -s schemas/suite.schema.json -d "*.workflow.yml"
+      - run: ajv validate -s schemas/workflow.schema.json -d "*.workflow.yml"
       - run: ajv validate -s schemas/test.schema.json -d "tests/*.yml"
 ```
 
@@ -220,7 +220,7 @@ Use schemas to validate dynamically generated workflows in your code.
 
 ```javascript
 import Ajv from 'ajv';
-import suiteSchema from './schemas/suite.schema.json';
+import suiteSchema from './schemas/workflow.schema.json';
 
 const ajv = new Ajv();
 const validate = ajv.compile(suiteSchema);
@@ -255,7 +255,7 @@ if (!valid) {
 import jsonschema
 import yaml
 
-with open('schemas/suite.schema.json') as f:
+with open('schemas/workflow.schema.json') as f:
     schema = yaml.safe_load(f)
 
 workflow = {
@@ -294,7 +294,7 @@ Generate TypeScript types or other language types from schemas.
 npm install -g json-schema-to-typescript
 
 # Generate types
-json-schema-to-typescript schemas/suite.schema.json -o types/workflow.d.ts
+json-schema-to-typescript schemas/workflow.schema.json -o types/workflow.d.ts
 json-schema-to-typescript schemas/test.schema.json -o types/test.d.ts
 json-schema-to-typescript schemas/step.schema.json -o types/step.d.ts
 ```
@@ -328,7 +328,7 @@ The schemas are designed to work together while remaining independently usable:
 
 ```
 ┌─────────────────────────────────────────┐
-│  suite.schema.json                      │
+│  workflow.schema.json                      │
 │  ├─ version: string                     │
 │  ├─ name: string                        │
 │  ├─ env: object                         │
@@ -431,11 +431,11 @@ tests:
 3. **Use schema directives** - Add `# yaml-language-server` comments to files
 4. **Generate types for programmatic workflows** - Ensure type safety when generating workflows
 5. **Keep schemas updated** - If you extend StepCI with plugins, update schemas accordingly
-6. **Use specific schemas for specific files** - Use `test.schema.json` for test files, not `suite.schema.json`
+6. **Use specific schemas for specific files** - Use `test.schema.json` for test files, not `workflow.schema.json`
 
 ## Terminology: Workflow vs Suite
 
-You may notice the main schema is named `suite.schema.json` while the documentation uses "Workflow":
+You may notice the main schema is named `workflow.schema.json` while the documentation uses "Workflow":
 
 - **Workflow** is the preferred term in documentation and CLI
 - **Suite** is used in schema filenames for historical reasons

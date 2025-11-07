@@ -1680,7 +1680,7 @@ StepCI provides JSON Schema definitions for workflows, tests, and steps to enabl
 
 ### Available Schemas
 
-**[`suite.schema.json`](../../schemas/suite.schema.json)** - Workflow (Suite) Schema
+**[`workflow.schema.json`](../../schemas/workflow.schema.json)** - Workflow (Suite) Schema
 - Defines the top-level workflow structure
 - Includes: version, name, env, config, tests
 - Use this for validating complete workflow files
@@ -1701,7 +1701,7 @@ StepCI provides JSON Schema definitions for workflows, tests, and steps to enabl
 **Validation in CI/CD:**
 ```bash
 # Validate a workflow file
-npx ajv-cli validate -s schemas/suite.schema.json -d workflow.yml
+npx ajv-cli validate -s schemas/workflow.schema.json -d workflow.yml
 ```
 
 **Editor Integration:**
@@ -1709,7 +1709,7 @@ npx ajv-cli validate -s schemas/suite.schema.json -d workflow.yml
 For VSCode and other editors that support JSON Schema, reference the schemas in your YAML files:
 
 ```yaml
-# yaml-language-server: $schema=../../schemas/suite.schema.json
+# yaml-language-server: $schema=../../schemas/workflow.schema.json
 version: "1.1"
 name: "My Workflow"
 tests:
@@ -1729,7 +1729,7 @@ Use the schemas to validate dynamically generated workflows:
 ```javascript
 const Ajv = require('ajv');
 const ajv = new Ajv();
-const suiteSchema = require('./schemas/suite.schema.json');
+const suiteSchema = require('./schemas/workflow.schema.json');
 
 const workflow = {
   version: "1.1",
@@ -1747,7 +1747,7 @@ if (!valid) console.error(validate.errors);
 The schemas mirror the three-level hierarchy:
 
 ```
-suite.schema.json (Workflow)
+workflow.schema.json (Workflow)
     ↓ references
 test.schema.json (Test)
     ↓ references

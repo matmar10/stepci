@@ -382,7 +382,7 @@ tests:
 
 The architecture is formally defined in JSON Schemas:
 
-- **`suite.schema.json`** - Defines workflow structure
+- **`workflow.schema.json`** - Defines workflow structure
 - **`test.schema.json`** - Defines test structure
 - **`step.schema.json`** - Defines step structure
 

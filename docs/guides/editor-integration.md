@@ -58,7 +58,7 @@ StepCI provides separate schema files for workflows, tests, and steps in the `/s
 
 ### Available Schemas
 
-- **`suite.schema.json`** - For workflow/suite files
+- **`workflow.schema.json`** - For workflow/suite files
 - **`test.schema.json`** - For test files
 - **`step.schema.json`** - For step files
 
@@ -79,7 +79,7 @@ Configure schema mappings based on your file organization:
 ```json
 {
   "yaml.schemas": {
-    "./schemas/suite.schema.json": ["*.stepci.yml"],
+    "./schemas/workflow.schema.json": ["*.stepci.yml"],
     "./schemas/test.schema.json": ["**/*.stepci-test.yml"],
     "./schemas/step.schema.json": ["**/*.stepci-step.yml"]
 >>>>>>> 5c0c457 (Add docs to explain architecture for large projects using separate files)
@@ -92,7 +92,11 @@ Configure schema mappings based on your file organization:
 You can also add schema directives directly in your YAML files:
 
 ```yaml
+<<<<<<< HEAD
 # yaml-language-server: $schema=https://raw.githubusercontent.com/stepci/stepci/refs/heads/main/schemas/suite.schema.json
+=======
+# yaml-language-server: $schema=../schemas/workflow.schema.json
+>>>>>>> 93b12a6 (Add build script to extract schemas for sub-types of files tests & steps)
 version: "1.1"
 name: "My Workflow"
 ```
@@ -111,6 +115,18 @@ http:
   url: https://example.com
 ```
 
+<<<<<<< HEAD
+=======
+### IntelliJ IDEA / JetBrains IDEs
+
+1. Open **Settings** → **Languages & Frameworks** → **Schemas and DTDs** → **JSON Schema Mappings**
+2. Click **+** to add new mappings
+3. For each schema:
+   - Name: "StepCI Workflow" (or "Test", "Step")
+   - Schema file: Browse to `schemas/workflow.schema.json` (or `test.schema.json`, `step.schema.json`)
+   - File path pattern: Add patterns like `*.stepci.yml`, `**/*.stepci-test.yml`, `**/*.stepci-step.yml`
+
+>>>>>>> 93b12a6 (Add build script to extract schemas for sub-types of files tests & steps)
 ### Schema Comparison
 
 **Main `schema.json`:**
@@ -152,7 +168,7 @@ Use this VSCode configuration:
 ```json
 {
   "yaml.schemas": {
-    "./schemas/suite.schema.json": "*.stepci.yml",
+    "./schemas/workflow.schema.json": "*.stepci.yml",
     "./schemas/test.schema.json": "**/*.stepci-test.yml",
     "./schemas/step.schema.json": "**/*.stepci-step.yml"
   }
@@ -162,7 +178,7 @@ Use this VSCode configuration:
 Or add directives to each file:
 ```yaml
 # api-tests.stepci.yml
-# yaml-language-server: $schema=./schemas/suite.schema.json
+# yaml-language-server: $schema=./schemas/workflow.schema.json
 
 # tests/auth.stepci-test.yml
 # yaml-language-server: $schema=../schemas/test.schema.json
